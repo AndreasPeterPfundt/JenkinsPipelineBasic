@@ -1,7 +1,7 @@
 pipeline {
   agent any
   stages {
-    stage('Buikd') {
+    stage('Build') {
       parallel {
         stage('Buikd') {
           steps {
@@ -18,7 +18,7 @@ pipeline {
 
         stage('Test Log') {
           environment {
-            LocalVariable = "HelloLocal"
+            LocalVariable = 'HelloLocal'
           }
           steps {
             writeFile(file: 'LogTestFile.txt', text: "This is ${ChromeDriverPath} and localvariable Value ${LocalVariable}")
@@ -30,9 +30,12 @@ pipeline {
 
     stage('Deploy') {
       parallel {
+        when {
+          branch 'master'
+        }
         stage('Deploy') {
           steps {
-            input(message: 'Do you want to Diploy?', id: 'OK')
+            input(message: 'Do you want to Deployment ?', id: 'OK')
             echo 'Deploung the app is IIS server'
           }
         }
