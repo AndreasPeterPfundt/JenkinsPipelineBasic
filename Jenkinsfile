@@ -29,16 +29,16 @@ pipeline {
     }
 
     stage('Deploy') {
-      parallel {
-        when {
-          branch 'master'
-        }
-        stage('Deploy') {
-          steps {
-            input(message: 'Do you want to Deployment ?', id: 'OK')
-            echo 'Deploung the app is IIS server'
-          }
-        }
+  parallel {
+    stage('Deploy') {
+      when {
+        branch 'master'
+      }
+      steps {
+        input(message: 'Do you want to Deployment ?', id: 'OK')
+        echo 'Deploying the app to IIS server'
+      }
+    }
 
         stage('Artifacts') {
           steps {
